@@ -237,6 +237,8 @@ p {
 .offers [class*=col] {
 	margin-bottom: 30px;
 } 
+#offers h3, #offers img {
+	cursor:pointer;
 .hand-circle {
 	display: block;
 	margin: 0 auto;
