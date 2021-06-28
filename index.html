@@ -4,123 +4,424 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="FE Assessment">
-    <meta name="author" content="Husna Bahrudin">
-    <title>Country Switcher</title>
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
-    <!--font face-->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&display=swap" rel="stylesheet">
-    <!-- Addon CSS -->
-    <link href="style.css" rel="stylesheet"> 
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Excelcomms</title>
+    <!-- core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- added CSS -->
+    <link href="css/ec.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 </head>
 
-<body class="dark">
-    <div id="country" class="">
-        <div class="header py-4">
-            <div class="container">
-                <div class="d-flex align-items-center justify-content-between">
-                    <h5 class="font-weight-bold m-0">Where in the world?</h5>
-                    <!-- dark/light mode-->
-                    <div class="toggle-mode">
-                        <span @click="toggleBodyClass('removeClass', 'dark')" class="to-dark"><i class="las la-moon"></i> Dark Mode</span>
-                        <span @click="toggleBodyClass('addClass', 'dark')" class="to-light"><i class="las la-sun"></i> Light Mode</span>
-                    </div>
+<body data-bs-spy="scroll" data-bs-target="#mainmenu">
+    <div class="pageloader"></div>
+    <a href="#home" class="backtotop"><i class="las la-arrow-up"></i> Back to top</a>
+    <video playsinline autoplay muted loop poster="img/bg.jpg" id="bgvid">
+        <source src="img/bg.mp4" type="video/mp4">
+    </video>
+    <header class="site-header container">
+        <nav class="navbar navbar-expand-md">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/excelcomms-logo.svg">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="las la-bars navbar-toggler-icon"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end " id="mainmenu">
+                <ul class="navbar-nav main-menu">
+                    <li class="nav-item d-block d-sm-block d-md-none">
+                        <a class="x-button nav-link"><i style="font-size: 20px" class="las la-times"></i></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about-us">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#offers">Solution Offering</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#support">Nationwide Support</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-btn" href="#contact">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div id="home" class="section keep-connected d-flex justify-content-center align-items-center ">
+        <div class="container top ">
+            <div class="main-title text-center text-white">
+                <h1>Keep it connected</h1>
+                <h3>Let your business move forward, undisrupted. </h3>
+                <p>Excelcomms is your One-Stop-Shop partner for connectivity and managed services, specialising in customised solutions made to fit your business perfectly.</p>
+                <div class="banner-btn">
+                    <button class="btn btn-full"><i class="las la-arrow-right"></i> Learn More</button>
+                    <button data-bs-toggle="modal" data-bs-target="#watch-reel" class="btn btn-ghost">Watch Reel</button>
                 </div>
             </div>
         </div>
-        <div class="h-100 page-content py-5">
-            <div class="container">
-                <!-- country filter and grid-->
-                <div v-if="!hideGrid" class="country-list">
-                    <!--filter-->
-                    <div class="country-filter d-md-flex d-sm-block align-items-center justify-content-between mb-5">
-                        <div class="country-search">
-                            <input v-model="searchParams" placeholder="Search country..." type="search" class="form-control">
-                        </div>
-                        <div class="country-region">
-                            <select v-model="filterRegion" class="form-control">
-                                <option value="all">All</option>
-                                <option value="africa">Africa</option>
-                                <option value="asia">Asia</option>
-                                <option value="americas">Americas</option>
-                                <option value="europe">Europe</option>
-                                <option value="oceania">Oceania</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row d-flex align-items-stretch">
-                        <!--grid list-->
-                        <div class="col-lg-3 col-md-6  col-12 h-100" v-for="item in countryData">
-                            <div class="country-holder rounded">
-                                <a @click="showCountryObject(item)">
-                                    <div class="flag d-sm-none d-none d-md-block" :style="{ background: 'url(' + item.flag + ') center center no-repeat' }"></div>
-                                    <div class="flag-mobile d-md-none d-block ">
-                                        <img :src="item.flag" class="w-100">
-                                    </div>
-                                </a>
-                                <div class="p-4">
-                                    <p class="font-weight-bold country-name">
-                                        {{item.name}}
-                                    </p>
-                                    <p class="mb-0">
-                                        <span class="title">Population: </span>{{item.population}}<br>
-                                        <span class="title">Region: </span>{{item.region}}<br>
-                                        <span class="title">Capital: </span>{{item.capital}}
-                                    </p>
-                                </div>
+    </div>
+    <div id="offers" class="section container offers ">
+        <h4 class="orange text-center">Solution Offering</h4>
+        <h1 class="spruce text-center">What We Offer</h1>
+        <div class="row">
+            <div data-bs-toggle="modal" data-bs-target="#mgd-svc" class="col-md-3 col-sm-6 col-6">
+                <img src="img/icon-mgd-svc.svg">
+                <h3 class="teal">Managed<br> Services</h3>
+            </div>
+            <div data-bs-toggle="modal" data-bs-target="#highspeed" class="col-md-3 col-sm-6 col-6">
+                <img src="img/icon-highspeed.svg">
+                <h3 class="teal">High Speed<br> Connectivity</h3>
+            </div>
+            <div data-bs-toggle="modal" data-bs-target="#dia" class="col-md-3 col-sm-6 col-6">
+                <img src="img/icon-dia.svg">
+                <h3 class="teal">DIA<br> & DDOS</h3>
+            </div>
+            <div data-bs-toggle="modal" data-bs-target="#ipvpn" class="col-md-3 col-sm-6 col-6">
+                <img src="img/icon-ipvpn.svg">
+                <h3 class="teal">IPVPN</h3>
+            </div>
+            <div data-bs-toggle="modal" data-bs-target="#cloud" class="col-md-3 col-sm-6 col-6">
+                <img src="img/icon-cloud.svg">
+                <h3 class="teal">Cloud<br> Services</h3>
+            </div>
+            <div data-bs-toggle="modal" data-bs-target="#security" class="col-md-3 col-sm-6 col-6">
+                <img src="img/icon-security.svg">
+                <h3 class="teal">Security<br> Services</h3>
+            </div>
+            <div data-bs-toggle="modal" data-bs-target="#data" class="col-md-3 col-sm-6 col-6">
+                <img src="img/icon-data.svg">
+                <h3 class="teal">Data Center<br> Colocation</h3>
+            </div>
+            <div data-bs-toggle="modal" data-bs-target="#sdwan" class="col-md-3 col-sm-6 col-6">
+                <img src="img/icon-sdwan.svg">
+                <h3 class="teal">SDWAN</h3>
+            </div>
+        </div>
+    </div>
+    <div id="about-us" class="section orange-circle">
+        <div class="container">
+            <div class="row partnership">
+                <div class="col-md-5">
+                    <img class="hand-circle" src="img/hand-circle.svg">
+                </div>
+                <div class="col-md-7">
+                    <h1 class="spruce">
+                        A reliable<br> partnership to boost<br> your digital journey
+                    </h1>
+                    <h3 class="teal">
+                        Have it your way - trust Excelcomms to deliver the best
+                    </h3>
+                    <p class="black">
+                        The rapid global shift towards digitalisation makes it critical for businesses to have the best IT infrastructure and network performance. As Malaysia’s leading value-added telecommunications provider, we are committed to growing together through long-term and mutually beneficial partnerships. Get a good head start with Excelcomms and boost your business through our extensive network and top-notch customised solutions.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid pr-0">
+            <div class="row optimize">
+                <div class="col-md-8 order-md-1 order-sm-2 order-2">
+                    <h1 class="spruce">Optimize your network experience<br> and business performance</h1>
+                    <h3 class="teal">Accelerate your core in full force - let us handle the rest. </h3>
+                    <div class="row accelerate">
+                        <div class="col-md-6 ">
+                            <div class="title-with-check d-flex align-items-center mb-4">
+                                <img src="img/check.svg">
+                                <h4>Nationwide Coverage</h4>
                             </div>
+                            <p>Our broad and cost-effective connectivity services are available everywhere nationwide, ensuring seamless connectivity throughout Malaysia. </p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="title-with-check d-flex align-items-center mb-4">
+                                <img src="img/check.svg">
+                                <h4>24/7 Support</h4>
+                            </div>
+                            <p>We are committed to provide you with immediate assistance. Our around-the-clock support guarantees your network stays up and running.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="title-with-check d-flex align-items-center mb-4">
+                                <img src="img/check.svg">
+                                <h4>Licensed Provider</h4>
+                            </div>
+                            <p>Both NSP and ASP qualified, we are experts in managed services, E2E WAN & Wi-Fi, Network Infrastructure and Integration, and more. </p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="title-with-check d-flex align-items-center mb-4">
+                                <img src="img/check.svg">
+                                <h4>Customised Solution</h4>
+                            </div>
+                            <p>Our customised approach to designing and deploying your network solutions ensures all your specific business needs are met. </p>
                         </div>
                     </div>
                 </div>
-                <!--country detail view-->
-                <div v-if="isHidden" class="country-details-holder">
-                    <button @click="!showCountryObject(item)" class="btn btn-main mb-5"><i class="las la-arrow-left"></i> Back</button>
-                    <div class="row country-details d-flex align-items-center">
-                        <div class="col-md-6">
-                            <div class="country-flag">
-                                <img :src="countryObject.flag" class="w-100">
-                            </div>
+                <div class="col-md-4 order-md-2 order-sm-1 order-1" style="padding-right:0;">
+                    <img class="happy-woman" src="img/happy.png" width="100%">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="support" class="section nationwide text-center">
+        <div class="container">
+            <h1 class="spruce">Nationwide Support</h1>
+            <h3 class="teal">Get the most out of your investment. We’re ready to<br> assist you, anytime and anywhere!</h3>
+            <button class="btn btn-full"><i class="las la-arrow-right"></i> Go to Nationwide Support</button>
+        </div>
+    </div>
+    <div id="contact" class="section get-in-touch">
+        <div class="container text-center">
+            <h1 class="text-white">Get in touch?</h1>
+            <button class="btn btn-ghost-2"><i class="las la-arrow-right"></i><span style="padding-left:10px">CONNECT WITH US</span></button>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="footer-add">
+                <img src="img/footerlogo.svg">
+                <div class="d-md-flex d-sm-block align-items-start justify-content-between">
+                    <div>
+                        <div class="address">
+                            Excel Commerce Solutions Sdn Bhd<br>
+                            L4-E-1B, <br>
+                            Level 4, Enterprise 4, Technology Park Malaysia<br>
+                            57000 Bukit Jalil, Kuala Lumpur
                         </div>
-                        <div class="col-md-6">
-                            <div class="country-details">
-                                <h3 class="font-weight-bold mb-4 ">{{countryObject.name}}</h3>
-                                <div class="row mb-5">
-                                    <div class="col-md-6">
-                                        <p class="country-details-1">
-                                            <span class="title">Native Name : </span>{{countryObject.nativeName}}<br>
-                                            <span class="title">Population :</span> {{countryObject.population}}<br>
-                                            <span class="title">Region : </span>{{countryObject.region}}<br>
-                                            <span class="title">Sub-Region :</span> {{countryObject.subregion}}<br>
-                                            <span class="title">Capital : </span>{{countryObject.capital}}
-                                        </p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p class="country-details-2">
-                                            <span class="title">Top Level Domain : </span>{{countryObject.topLevelDomain[0]}}<br>
-                                            <span class="title">Currencies : </span>{{countryObject.currencies[0].name}}<br>
-                                            <span class="title">Languages : </span>{{countryObject.languages[0].name}}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="country-borders d-inline-block align-items-center">
-                                    <span class="title mr-3">Border Countries : </span>
-                                    <button v-for="country in countryObject.borders" @click="showCountryObjectByCode(country)" class="btn btn-main mr-2 mb-2">{{ country }}</button>
-                                </div>
-                            </div>
+                        <div class="other">
+                            Contact: 011-21037901 <br>
+                            Email: sales@excelcomms.com.my
+                        </div>
+                    </div>
+                    <div class="social-media d-md-flex d-sm-block d-block justify-content-end align-items-center">
+                        <h3 class="teal my-0 mr-4">Follow Excelcomms</h3>
+                        <div class="icons">
+                            <a href="#" class="fb">facebook</a>
+                            <a href="#" class="ig">instagram</a>
+                            <a href="#" class="in">linkedin</a>
+                            <a href="#" class="yt">youtube</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="disclaimer d-md-flex d-sm-block d-block align-items-center justify-content-between">
+                <div>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of agreement</a>
+                </div>
+                <span>© 2021 by EXCEL COMMS. All Rights Reserved</span>
+            </div>
+        </div>
+        </div>
+    </footer>
+    <div class="modal fade" id="mgd-svc">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span class="close" data-bs-dismiss="modal"><i class="las la-times"></i></span>
+                    <div class="modal-holder">
+                        <img src="img/icon-mgd-svc.svg">
+                        <h2 class="spruce">Managed Services</h2>
+                        <p class="black">Our managed services provides a secure, end-to-end and fuly managed on site equipment services. The service is scalable and tailored to your requirement and comes with 24x7 monitoring and support.</p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <small>Customer Premise Equipment (CPE) includes routers, firewall, switches, Wi-Fi access points, etc.</small>
+                        <div class="toggle-modal d-flex align-items-center">
+                            <div class="prev"><img style="opacity: 0.2" src="img/chevron.svg"></div>
+                            <div class="next" data-bs-target="#highspeed" data-bs-toggle="modal" data-bs-dismiss="modal"><img src="img/chevron.svg"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal fade" id="highspeed">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span class="close" data-bs-dismiss="modal"><i class="las la-times"></i></span>
+                    <div class="modal-holder">
+                        <img src="img/icon-highspeed.svg">
+                        <h2 class="spruce">High Speed Connectivity</h2>
+                        <p class="black">Our high speed connectivity enables a network connection devoted to your premise. We provide a managed, high performance and consistent speed connectivity with 24x7 monitoring & support.</p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <small>The connectivity can be via Metro Ethernet, Broadband or Wireless Connectivity.</small>
+                        <div class="toggle-modal d-flex align-items-center">
+                            <div class="prev" data-bs-target="#mgd-svc" data-bs-toggle="modal" data-bs-dismiss="modal"><img src="img/chevron.svg"></div>
+                            <div class="next" data-bs-target="#dia" data-bs-toggle="modal" data-bs-dismiss="modal"><img src="img/chevron.svg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="dia">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span class="close" data-bs-dismiss="modal"><i class="las la-times"></i></span>
+                    <div class="modal-holder">
+                        <img src="img/icon-dia.svg">
+                        <h2 class="spruce">DIA & DDOS</h2>
+                        <p class="black">Our Dedicated Internet Access (DIA) provides a dedicated connectivity to your premise. With DIA, The connection is symmetrical where you will enjoy upload speed same as download speed.</p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <small>Our DDOS protection solution secures network while ensuring legitimate traffic is not compromised.</small>
+                        <div class="toggle-modal d-flex align-items-center">
+                            <div class="prev" data-bs-target="#highspeed" data-bs-toggle="modal" data-bs-dismiss="modal"><img src="img/chevron.svg"></div>
+                            <div class="next" data-bs-target="#ipvpn" data-bs-toggle="modal" data-bs-dismiss="modal"><img src="img/chevron.svg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ipvpn">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span class="close" data-bs-dismiss="modal"><i class="las la-times"></i></span>
+                    <div class="modal-holder">
+                        <img src="img/icon-ipvpn.svg">
+                        <h2 class="spruce">IPVPN</h2>
+                        <p class="black">Our IPVPN service enables a private network (point to point or point to multipoint) between an HQ with it branches. The network can carry voice, data and video on a single network.</p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <small>The connectivity can be via Ethernet, ADSL Broadband or wireless Connectivity (3G/4G). Staff will be able to access resources as if they are in the same office.</small>
+                        <div class="toggle-modal d-flex align-items-center">
+                            <div class="prev" data-bs-target="#dia" data-bs-toggle="modal" data-bs-dismiss="modal"><img src="img/chevron.svg"></div>
+                            <div class="next" data-bs-target="#cloud" data-bs-toggle="modal" data-bs-dismiss="modal"><img src="img/chevron.svg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="cloud">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span class="close" data-bs-dismiss="modal"><i class="las la-times"></i></span>
+                    <div class="modal-holder">
+                        <img src="img/icon-cloud.svg">
+                        <h2 class="spruce">Cloud Services</h2>
+                        <p class="black">Our cloud services provides the options to business owners to mi and match services over the cloud, independent of operating system.</p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <small>Our services include Infrastructure As A Service (IAAS), Platform As A Service (PAAS) and Software As A Service (SAAS). The services are scalable, pay as you use basis with rapid implementation.</small>
+                        <div class="toggle-modal d-flex align-items-center">
+                            <div class="prev" data-bs-target="#ipvpn" data-bs-toggle="modal" data-bs-dismiss="modal"><img src="img/chevron.svg"></div>
+                            <div class="next" data-bs-target="#security" data-bs-toggle="modal" data-bs-dismiss="modal"><img src="img/chevron.svg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="security">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span class="close" data-bs-dismiss="modal"><i class="las la-times"></i></span>
+                    <div class="modal-holder">
+                        <img src="img/icon-security.svg">
+                        <h2 class="spruce">Security Services</h2>
+                        <p class="black">Our security services are designed to protect company infrastructures and devices from unwanted attacks and unknown access.</p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <small>We will assess client infrastructures as well as connections, evaluate its security level and propose firewall as well as other protective tools and measures. With the implementation, we can provide overall security health and visibility.</small>
+                        <div class="toggle-modal d-flex align-items-center">
+                            <div class="prev" data-bs-target="#cloud" data-bs-toggle="modal" data-bs-dismiss="modal"><img src="img/chevron.svg"></div>
+                            <div class="next" data-bs-target="#data" data-bs-toggle="modal" data-bs-dismiss="modal"><img src="img/chevron.svg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="data">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span class="close" data-bs-dismiss="modal"><i class="las la-times"></i></span>
+                    <div class="modal-holder">
+                        <img src="img/icon-data.svg">
+                        <h2 class="spruce">Data Center Colocation</h2>
+                        <p class="black">Our data center colocation service allows business owners to rent space for servers and other hardware. We will provide, cooling, power, bandwidth, security and owners will provide servers and storage.</p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <small>Besides colocation, other flavors of services include business continuity, hosting, backup, etc.</small>
+                        <div class="toggle-modal d-flex align-items-center">
+                            <div class="prev" data-bs-target="#security" data-bs-toggle="modal" data-bs-dismiss="modal"><img src="img/chevron.svg"></div>
+                            <div class="next" data-bs-target="#sdwan" data-bs-toggle="modal" data-bs-dismiss="modal"><img src="img/chevron.svg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="sdwan">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span class="close" data-bs-dismiss="modal"><i class="las la-times"></i></span>
+                    <div class="modal-holder">
+                        <img src="img/icon-sdwan.svg">
+                        <h2 class="spruce">SDWAN</h2>
+                        <p class="black">Our SDWAN service enables telecom services over the internet with the aid of software.</p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <small>In includes connectivity and device delivery and installation. We also include 24x7 monitoring and maintenance services. Our service allows load sharing of traffic across multiple wan connections making data transmission more efficient.</small>
+                        <div class="toggle-modal d-flex align-items-center">
+                            <div class="prev" data-bs-target="#data" data-bs-toggle="modal" data-bs-dismiss="modal"><img src="img/chevron.svg"></div>
+                            <div class="next"><img style="opacity: 0.3" src="img/chevron.svg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="watch-reel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body p-0" style="line-height:1px">
+                    <iframe style="border-radius: 20px" width="100%" height="400" &origin="https://www.youtube.com/embed/mQqbcCMWciE" src="https://www.youtube.com/embed/mQqbcCMWciE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-<script src="project.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
+<script>
+$(window).load(function() {
+    $(".pageloader").fadeOut("slow");
+});
+var windowwidth = $(window).width();
+var boxwidth = $('.container').width();
+var gap = (windowwidth - boxwidth);
+$('.optimize .col-md-8').css('padding-left', gap);
 
+$("#watch-reel").on('hidden.bs.modal', function(e) {
+    $("#watch-reel iframe").attr("src", $("#watch-reel iframe").attr("src"));
+});
+
+$('.x-button').click(function() {
+    $('#mainmenu').removeClass('show');
+});
+
+$(document).scroll(function() {
+  var y = $(this).scrollTop();
+  if (y > 800) {
+    $('.backtotop').fadeIn();
+  } else {
+    $('.backtotop').fadeOut();
+  }
+});
+
+</script>
 </html>
