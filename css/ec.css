@@ -134,8 +134,7 @@ p {
     position: relative;
     width: 100%;
     background-size: cover;
-    margin-top: -146px;
-    height: calc(100vh + 20px);
+    margin-top: -146px; 
 }
 #bgvid {
     width: 100%;
