@@ -410,9 +410,10 @@ $("#watch-reel").on('hidden.bs.modal', function(e) {
     $("#watch-reel iframe").attr("src", $("#watch-reel iframe").attr("src"));
 });
 
-$('.x-button').click(function() {
+$('.x-button, a.nav-item').click(function() {
     $('#mainmenu').removeClass('show');
 });
+
 
 $(document).scroll(function() {
   var y = $(this).scrollTop();
