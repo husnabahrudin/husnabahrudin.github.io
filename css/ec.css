@@ -402,6 +402,9 @@ body {
     filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.3));
 }
 @media screen and (max-width: 767px) {
+	.keep-connected {
+		height:100vh !important;
+	}
     #bgvid {
         display: none;
     }
