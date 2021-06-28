@@ -409,7 +409,9 @@ $('.optimize .col-md-8').css('padding-left', gap);
 $("#watch-reel").on('hidden.bs.modal', function(e) {
     $("#watch-reel iframe").attr("src", $("#watch-reel iframe").attr("src"));
 });
-
+var vidheight = $('video').height();
+$('.keep-connected').css('height', vidheight);
+    
 $('.x-button, li.nav-item').click(function() {
     $('#mainmenu').removeClass('show');
 });
