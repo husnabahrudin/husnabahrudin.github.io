@@ -15,7 +15,7 @@
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#mainmenu">
-    <!--<div class="pageloader"></div>-->
+    <div class="pageloader"></div>
     <a href="#home" class="backtotop"><i class="las la-arrow-up"></i> Back to top</a>
     <video playsinline autoplay muted loop poster="img/bg.jpg" id="bgvid">
         <source src="img/bg.mp4" type="video/mp4">
@@ -57,7 +57,7 @@
             <div class="main-title text-center text-white">
                 <h1>Keep it connected</h1>
                 <h3>Let your business move forward, undisrupted. </h3>
-                <p>Excelcomms is your One-Stop-Shop partner for connectivity and managed services, specialising in customised solutions made to fit your business perfectly.</p>
+                <p>Excelcomms is your dedicated partner for connectivity and managed services, specialising in customised solutions made to fit your business perfectly.</p>
                 <div class="banner-btn">
                     <button class="btn btn-full"><i class="las la-arrow-right"></i> Learn More</button>
                     <button data-bs-toggle="modal" data-bs-target="#watch-reel" class="btn btn-ghost">Watch Reel</button>
@@ -174,7 +174,7 @@
     <div id="contact" class="section get-in-touch">
         <div class="container text-center">
             <h1 class="text-white">Get in touch?</h1>
-            <button class="btn btn-ghost-2"><i class="las la-arrow-right"></i><span style="padding-left:10px">CONNECT WITH US</span></button>
+            <a href="mailto:sales@excelcomms.com.my"><button class="btn btn-ghost-2"><i class="las la-arrow-right"></i><span style="padding-left:10px">CONNECT WITH US</span></button></a>
         </div>
     </div>
     <footer>
@@ -393,14 +393,14 @@
         </div>
     </div>
 </body>
-<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
 <script>
-/*$(window).load(function() {
+$(window).load(function() {
     $(".pageloader").fadeOut("slow");
-});*/
+});
 var windowwidth = $(window).width();
 var boxwidth = $('.container').width();
 var gap = (windowwidth - boxwidth);
@@ -409,13 +409,13 @@ $('.optimize .col-md-8').css('padding-left', gap);
 $("#watch-reel").on('hidden.bs.modal', function(e) {
     $("#watch-reel iframe").attr("src", $("#watch-reel iframe").attr("src"));
 });
-var vidheight = $('video').height();
-$('.keep-connected').css('height', vidheight);
-    
-$('.x-button, li.nav-item').click(function() {
+
+$('.x-button').click(function() {
     $('#mainmenu').removeClass('show');
 });
 
+var vidheight = $('video').height();
+$('.keep-connected').css('height', vidheight);
 
 $(document).scroll(function() {
   var y = $(this).scrollTop();
