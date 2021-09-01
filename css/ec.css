@@ -130,7 +130,7 @@ p {
 }
 
 .keep-connected {
-    background: rgba(0,0,0,0.7);
+     
     position: relative;
     width: 100%;
     background-size: cover;
@@ -290,10 +290,10 @@ footer {
 .social-media {
      
 }
-.fb { background: url(../img/fb.svg) no-repeat; }
-.ig { background: url(../img/ig.svg) no-repeat; }
-.in { background: url(../img/li.svg) no-repeat; }
-.yt { background: url(../img/yt.svg) no-repeat; }
+.fb { background: url(../fb.svg) no-repeat; }
+.ig { background: url(../ig.svg) no-repeat; }
+.in { background: url(../li.svg) no-repeat; }
+.yt { background: url(../yt.svg) no-repeat; }
 
 .disclaimer {
     font-size: 12px;
