@@ -34,7 +34,7 @@
                         <a class="x-button nav-link"><i style="font-size: 20px" class="las la-times"></i></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#home">Home</a>
+                        <a data-dismiss="collapse" class="nav-link" href="#home">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#about-us">About Us</a>
@@ -411,9 +411,22 @@ $("#watch-reel").on('hidden.bs.modal', function(e) {
 $('.x-button').click(function() {
     $('#mainmenu').removeClass('show');
 });
-
 var vidheight = $('video').height();
-$('.keep-connected').css('height', vidheight);
+var vidwidth = $('video').width();
+if ($(window).width() > 991) {
+   $('.keep-connected').css('height', vidheight);
+}
+else if ($(window).width() > 580) {
+	$('.keep-connected').css('height', vidheight + 250 );
+   $('#bgvid').css({'height': vidheight + 250 , 'width':'auto','margin-left': vidwidth/-4});
+}
+else {
+  
+}
+$('.navbar-nav>li>a').on('click', function(){
+    $('.navbar-collapse').collapse('hide');
+});
+
 
 $(document).scroll(function() {
   var y = $(this).scrollTop();
